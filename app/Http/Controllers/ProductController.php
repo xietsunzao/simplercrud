@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use App\Category;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -25,7 +26,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('product.create');
+        $category = Category::all();
+        return view('product.create',compact('category'));
     }
 
     /**
@@ -37,11 +39,21 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'productid' => 'required|string|max:50|unique:products',
+            // 'productid' => 'required|string|max:50|unique:products',
             'name' => 'required|string|max:50|unique:products',
             'price' => 'required|string',
             'category' => 'required|string',
             'description' => 'required',
+        ]);
+        if (Product::all()->count() == 0) {
+            $put = 1;
+        }else{
+            $last = Product::all()->last()->productid;
+            $getId = substr($last, -1);
+            $put = $getId+1;
+        }
+        $request->request->add([
+            'productid' =>substr($request->category,0,1) . "000" . $put,
         ]);
         Product::create($request->except('_token'));
         return redirect()

@@ -7,17 +7,14 @@
             <h3 class="card-title mb-1">Product Add</h3>
         </div>
         <div class="card-body">
+            @if($category->count() == 0 )
+            <center>
+                <h1 class="text-danger">Please Make Your Category first</h1>
+                <a class="btn btn-warning" href="{{ route('category.create') }}">Create Category</a>
+            </center>
+            @else
             <form action="{{ route('product.store') }}" method="POST">
                 @csrf
-                <div class="form-group">
-                    <label for="productid">Product ID</label>
-                    <input type="text" id="productid" name="productid" class="form-control @error('productid') is-invalid @enderror">
-                    @error('productid')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
                 <div class="form-group">
                     <label for="name">Product Name</label>
                     <input type="text" id="name" name="name" class="form-control @error('name') is-invalid @enderror">
@@ -29,7 +26,12 @@
                 </div>
                 <div class="form-group">
                     <label for="category">Product Category</label>
-                    <input type="text" id="category" name="category" class="form-control @error('category') is-invalid @enderror">
+                    <select name="category" id="category" class="form-control @error('category') is-invalid @enderror">
+                        <option value="">Select Data</option>
+                        @foreach ($category as $item)
+                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                        @endforeach
+                    </select>
                     @error('category')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -61,7 +63,8 @@
                         SAVE
                     </button>
                 </div>
-            </form>
+            </form>          
+            @endif
         </div>
     </div>
 @endsection
