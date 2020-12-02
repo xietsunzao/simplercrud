@@ -7,12 +7,12 @@
             <h3 class="card-title mb-1">Product Add</h3>
         </div>
         <div class="card-body">
-            @if($category->count() == 0 )
+            {{-- @if($category->count() == 0 )
                 <center>
                     <h1 class="text-danger">Please Make Your Category first</h1>
                     <a class="btn btn-warning" href="{{ route('category.create') }}">Create Category</a>
                 </center>
-            @else
+            @else --}}
                 <form action="{{ route('product.store') }}" method="POST">
                     @csrf
                     <div class="form-group">
@@ -73,7 +73,7 @@
                         </button>
                     </div>
                 </form>          
-            @endif
+            {{-- @endif --}}
         </div>
     </div>
 @endsection
