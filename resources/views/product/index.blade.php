@@ -14,7 +14,7 @@
         <div class="card-body">
             {{-- Alert --}}
             @if (session('success'))
-                <div class="alert alert-warning fade show" role="alert">{{ session('success') }}</div>
+                <div class="alert alert-success fade show" role="alert">{{ session('success') }}</div>
             @endif
             @if (session('error'))
                 <div class="alert alert-warning fade show" role="alert">{{ session('error') }}</div>
@@ -42,7 +42,7 @@
                     <tr>
                         <td>{{ $c->productid }}</td>
                         <td>{{ $c->name }}</td>
-                        <td>{{ $c->category }}</td>
+                        <td>{{ $c->Category->name }}</td>
                         <td>{{ $c->price }}</td>
                         <td>{{ $c->description }}</td>
                         <td>
