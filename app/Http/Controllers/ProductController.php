@@ -39,21 +39,11 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            // 'productid' => 'required|string|max:50|unique:products',
+            'productid' => 'required|string|max:50|unique:products',
             'name' => 'required|string|max:50|unique:products',
             'price' => 'required|string',
-            'category' => 'required|string',
+            'category_id' => 'required',
             'description' => 'required',
-        ]);
-        if (Product::all()->count() == 0) {
-            $put = 1;
-        }else{
-            $last = Product::all()->last()->productid;
-            $getId = substr($last, -1);
-            $put = $getId+1;
-        }
-        $request->request->add([
-            'productid' =>substr($request->category,0,1) . "000" . $put,
         ]);
         Product::create($request->except('_token'));
         return redirect()
@@ -96,7 +86,7 @@ class ProductController extends Controller
         $this->validate($request,[
             'name' => 'required|string|max:50',
             'price' => 'required|string',
-            'category' => 'required|string',
+            'category_id' => 'required|string',
             'description' => 'required',
         ]);
         $product->update($request->except('_token'));

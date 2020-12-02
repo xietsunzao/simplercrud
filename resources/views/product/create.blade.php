@@ -16,6 +16,15 @@
             <form action="{{ route('product.store') }}" method="POST">
                 @csrf
                 <div class="form-group">
+                    <label for="productid">Product ID</label>
+                    <input type="text" id="productid" name="productid" class="form-control @error('productid') is-invalid @enderror">
+                    @error('productid')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+                <div class="form-group">
                     <label for="name">Product Name</label>
                     <input type="text" id="name" name="name" class="form-control @error('name') is-invalid @enderror">
                     @error('name')
@@ -25,14 +34,14 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="category">Product Category</label>
-                    <select name="category" id="category" class="form-control @error('category') is-invalid @enderror">
+                    <label for="category_id">Product Category</label>
+                    <select name="category_id" id="category_id" class="form-control @error('category_id') is-invalid @enderror">
                         <option value="">Select Data</option>
                         @foreach ($category as $item)
                             <option value="{{ $item->id }}">{{ $item->name }}</option>
                         @endforeach
                     </select>
-                    @error('category')
+                    @error('category_id')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
